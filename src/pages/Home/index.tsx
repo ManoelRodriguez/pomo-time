@@ -16,10 +16,23 @@ export function Home() {
             <form action="">
                 <FormContainer>
                     <label htmlFor="">Vou trabalhar em</label>
-                    <TaksInput id="task" placeholder="Dê um nome para o seu projeto" />
+                    <TaksInput id="task" list="task-sugestions" placeholder="Dê um nome para o seu projeto" />
+
+                    <datalist id="task-sugestions">
+                        <option value="Estudar ReactJs"></option>
+                        <option value="Estudar NextJs"></option>
+                        <option value="Estudar NodeJs"></option>
+                    </datalist>
 
                     <label htmlFor="">durante</label>
-                    <MinutesAmountInput type="number" id="minutesAmount" placeholder="00" />
+                    <MinutesAmountInput
+                        type="number"
+                        id="minutesAmount"
+                        placeholder="00"
+                        step={5}
+                        min={5}
+                        max={60}
+                    />
 
                     <span>minutos.</span>
                 </ FormContainer>
