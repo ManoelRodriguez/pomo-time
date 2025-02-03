@@ -5,6 +5,8 @@
 - Styled Componentes
 - Validação de formulários
 - React hookForm
+- Zod (validação de formulários)
+- npm i @hookform/resolvers - lib para integrar o react hookform com o zod
 
   -- Anotações
 
