@@ -75,6 +75,12 @@ export function Home() {
         return () => clearInterval(interval)
     }, [activeCycle])
 
+    useEffect(() => {
+        if (activeCycle) {
+            document.title = `${minutes}:${seconds}`
+        }
+    }, [minutes, seconds, activeCycle])
+
     function handleCreateNewCycle(data: NewCycleFormData) {
 
         const id = String(new Date().getTime())
