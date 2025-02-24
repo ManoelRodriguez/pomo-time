@@ -10,8 +10,8 @@ interface Cycle {
     task: string,
     minutesAmount: number,
     startDate: Date,
-    interruptedDate: Date,
-    finishedDate: Date
+    interruptedDate: Date | null,
+    finishedDate: Date | null
 }
 
 interface CyclesContextType {
@@ -63,8 +63,8 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
             task: data.task,
             minutesAmount: data.minutesAmount,
             startDate: new Date(),
-            interruptedDate: new Date(),
-            finishedDate: new Date()
+            interruptedDate: null,
+            finishedDate: null
         }
 
         setCycles([...cycles, newCycle]) // (state) => [(...state + newCycle)]
