@@ -27,9 +27,9 @@ export function cyclesReducer(state: CyclesState, action: any){
 
         case actionTypes.INTERRUPT_CURRENT_CYCLE: {
            
-            const currentCycleIndex = state.cycles.findIndex(cycle => {
+            const currentCycleIndex = state.cycles.findIndex(cycle => 
                 cycle.id === state.activeCycleId
-            })
+            )
 
             if(currentCycleIndex < 0){
                 return state
