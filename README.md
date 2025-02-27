@@ -27,3 +27,7 @@
   permite compartilharmos informçaões entre vários componentes ao mesmo tempo
 
   -- Não enviar a função set(de alterar estados) pelo contexto. Criar uma função e armazenar o set e enviar a função pelo contexto
+
+  -- Use Reducer
+
+  -- Immer

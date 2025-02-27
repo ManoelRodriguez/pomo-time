@@ -1,5 +1,11 @@
 import { createContext, useReducer, useState } from "react"
-import { actionTypes, Cycle, cyclesReducer } from "../reducers/cycles"
+// biome-ignore lint/style/useImportType: <explanation>
+import { Cycle, cyclesReducer } from "../reducers/cycles/reducer"
+import {
+    addNewCycleAction,
+    interruptCurrentCycleAction,
+    markCurrentCycleAsFinishedAction
+} from "../reducers/cycles/actions"
 
 interface CreateCycleData {
     task: string,
@@ -40,12 +46,7 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
 
     function markCurrentCycleAsFinished() {
 
-        dispatch({
-            type: actionTypes.MARK_CURRENT_CYCLE_AS_FINISHED,
-            payload: {
-                activeCycleId,
-            },
-        })
+        dispatch(markCurrentCycleAsFinishedAction())
     }
 
     function setSecondsPassed(seconds: number) {
@@ -65,24 +66,14 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
             finishedDate: null
         }
 
-        dispatch({
-            type: actionTypes.ADD_NEW_CYCLE,
-            payload: {
-                newCycle,
-            },
-        })
+        dispatch(addNewCycleAction(newCycle))
 
         setAmountSecondsPassed(0)
     }
 
     function interruptCurrentCycle() {
 
-        dispatch({
-            type: actionTypes.INTERRUPT_CURRENT_CYCLE,
-            payload: {
-                activeCycleId,
-            },
-        })
+        dispatch(interruptCurrentCycleAction())
         document.title = "Pomo Time"
     }
 
