@@ -1,17 +1,9 @@
 import { createContext, useReducer, useState } from "react"
+import { actionTypes, Cycle, cyclesReducer } from "../reducers/cycles"
 
 interface CreateCycleData {
     task: string,
     minutesAmount: number
-}
-
-interface Cycle {
-    id: string,
-    task: string,
-    minutesAmount: number,
-    startDate: Date,
-    interruptedDate: Date | null,
-    finishedDate: Date | null
 }
 
 interface CyclesContextType {
@@ -31,41 +23,29 @@ interface CyclesContextProviderProps {
 
 export const CyclesContext = createContext({} as CyclesContextType)
 
+
+
 export function CyclesContextProvider({ children }: CyclesContextProviderProps) {
 
-    const [cycles, dispatch] = useReducer((state: Cycle[], action: any) => {
+    const [cyclesState, dispatch] = useReducer(cyclesReducer, {
+        cycles: [],
+        activeCycleId: null
+    })
 
-        if (action.type === 'ADD_NEW_CYCLE') {
-            return [...state, action.payload.newCycle]
-        }
-
-        return state
-    }, [])
-    const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
     const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
+
+    const { cycles, activeCycleId } = cyclesState
 
     const activeCycle = cycles.find(cycle => cycle.id === activeCycleId)
 
     function markCurrentCycleAsFinished() {
 
         dispatch({
-            type: 'MARK_CURRENT_CYCLE_AS_FINISHED',
+            type: actionTypes.MARK_CURRENT_CYCLE_AS_FINISHED,
             payload: {
                 activeCycleId,
             },
         })
-
-        /* setCycles((state) =>
-            state.map(cycle => {
-                if (cycle.id === activeCycleId) {
-                    return { ...cycle, finishedDate: new Date() }
-                } else {
-                    return cycle
-                }
-            })
-                
-        )
-            */
     }
 
     function setSecondsPassed(seconds: number) {
@@ -86,37 +66,24 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
         }
 
         dispatch({
-            type: 'ADD_NEW_CYCLE',
+            type: actionTypes.ADD_NEW_CYCLE,
             payload: {
                 newCycle,
             },
         })
 
-        /* setCycles([...cycles, newCycle]) */
-        setActiveCycleId(id)
         setAmountSecondsPassed(0)
-        /* reset() */
     }
 
     function interruptCurrentCycle() {
 
         dispatch({
-            type: 'INTERRUPT_CURRENT_CYCLE',
+            type: actionTypes.INTERRUPT_CURRENT_CYCLE,
             payload: {
                 activeCycleId,
             },
         })
-        /* setCycles((state) =>
-            state.map(cycle => {
-                if (cycle.id === activeCycleId) {
-                    return { ...cycle, interruptedDate: new Date() }
-                } else {
-                    return cycle
-                }
-            })
-        ) */
         document.title = "Pomo Time"
-        setActiveCycleId(null)
     }
 
     return (
