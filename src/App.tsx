@@ -5,7 +5,7 @@ import { Router } from './Router';
 
 import { defaultTheme } from './styles/themas/default';
 import { GlobalStyle } from './styles/global';
-import { CyclesContext, CyclesContextProvider } from './contexts/CyclesContext';
+import { CyclesContextProvider } from './contexts/CyclesContext';
 
 export function App() {
 
